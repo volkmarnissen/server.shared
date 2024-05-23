@@ -1,0 +1,11 @@
+dist/
+**/node_modules/
+ssl/
+**/*xx/
+**/.angular/
+**/server/yaml-dir/local/secrets.yaml
+.vscode/*
+.history/*
+.jest/*
+**/.DS*_Store
+package-lock.json
