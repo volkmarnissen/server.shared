@@ -31,4 +31,7 @@
     "dist/**/*",
     "**/__tests__/**",
   ],
+  "paths":{
+    "server.shared/src/*": ["./src/*"]
+  }
 }
