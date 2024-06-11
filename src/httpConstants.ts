@@ -6,6 +6,7 @@ export const enum apiUri {
     specficationContribute = '/api/specification/contribute',
     specificationValidate = '/api/specification/validate',
     modbusEntity = '/api/modbus/entity',
+    specificationFetchPublic ='/api/specification/fetchpublic',
     upload = "/api/upload",
     userAuthenticationStatus = '/userAuthenticationStatus',
     userLogin = '/user/login',
