@@ -1,6 +1,6 @@
 
 import { IClientOptions } from 'mqtt';
-import { ISpecificationTexts, IbaseSpecification, IdentifiedStates, IimageAndDocumentUrl, ImodbusEntityIdentification, SpecificationStatus } from 'specification.shared';
+import { ISpecificationTexts, IbaseSpecification, IdentifiedStates, IimageAndDocumentUrl, ImodbusEntityIdentification, SpecificationStatus } from '@modbus2mqtt/specification.shared';
 
 export enum HttpErrorsEnum {
     OK = 200,
