@@ -3,32 +3,29 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "commonjs",
-    "outDir": "./dist",
+    "module": "ES2022",
+    "outDir": "./esm",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-
-    "noImplicitOverride": true,
+     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
+    "esModuleInterop": false,
     "strictPropertyInitialization": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "moduleResolution": "Bundler",
     "declaration": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
+    "importHelpers": false,
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
       "dom"
     ]
-  },
-  "exclude":[
-    "node_modules/**/*",
-    "dist/**/*",
-    "**/__tests__/**",
+  }, 
+  "include": [
+    "src/*"
   ]
 }

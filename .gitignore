@@ -1,4 +1,5 @@
-dist/
+esm/
+cjs/
 **/node_modules/
 ssl/
 **/*xx/
