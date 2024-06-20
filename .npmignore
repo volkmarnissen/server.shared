@@ -1,7 +1,9 @@
 src/*
-tsconfig.json
 
 package-lock.json
+package.json.bck
+tsconfig.*
+
 node_modules/*
 *.tsbuildinfo
 
