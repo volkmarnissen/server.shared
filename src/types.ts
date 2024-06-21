@@ -17,7 +17,15 @@ export enum HttpErrorsEnum {
     ErrInvalidParameter = 422,
     SrvErrInternalServerError = 500
 }
-
+export enum RoutingNames  {
+    login = 'login',
+    register = 'register',
+    configure = 'configure', 
+    busses = 'busses', 
+    specifications = 'specifications', 
+    slaves = 'slaves', 
+    specification = 'specification'
+}
 export interface ImqttClient extends IClientOptions {
     mqttserverurl?: string
 }
