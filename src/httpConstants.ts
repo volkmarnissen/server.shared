@@ -6,7 +6,7 @@ export const enum apiUri {
     specficationContribute = '/api/specification/contribute',
     specificationValidate = '/api/specification/validate',
     modbusEntity = '/api/modbus/entity',
-    specificationFetchPublic ='/api/specification/fetchpublic',
+    specificationFetchPublic = '/api/specification/fetchpublic',
     upload = "/api/upload",
     userAuthenticationStatus = '/userAuthenticationStatus',
     userLogin = '/user/login',
@@ -22,5 +22,6 @@ export const enum apiUri {
     validateMqtt = '/api/validate/mqtt',
     writeEntity = '/api/modbus/write/entity',
     serialDevices = '/api/serial/devices',
-    addFilesUrl = "/api/addFilesUrl"
+    addFilesUrl = "/api/addFilesUrl",
+    newSpecificationfiles = "/api/newSpecificationfiles"
 }
