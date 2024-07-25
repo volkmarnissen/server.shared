@@ -1,6 +1,6 @@
 {
     "name": "@modbus2mqtt/server.shared",
-    "version": "0.8.0",
+    "version": "0.9.0-alpha.0",
     "type": "module",
     "description": "interfaces and functions shared with server and angular ui",
     "keywords": [
@@ -23,7 +23,7 @@
     "exports": {
         "require": "./cjs/index.js",
         "import": "./esm/index.js"
-      },
+    },
     "devDependencies": {
         "tslib": "^2.6.3",
         "typescript": "^5.4.5"
