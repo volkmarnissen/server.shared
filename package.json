@@ -1,6 +1,6 @@
 {
     "name": "@modbus2mqtt/server.shared",
-    "version": "0.9.0-alpha.0",
+    "version": "0.9.0",
     "type": "module",
     "description": "interfaces and functions shared with server and angular ui",
     "keywords": [
@@ -29,7 +29,7 @@
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "@modbus2mqtt/specification.shared": "0.7.0",
+    "@modbus2mqtt/specification.shared": "^0.7.0",
         "mqtt": "^5.7.1"
     }
 }
