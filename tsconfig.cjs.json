@@ -1,11 +1,11 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-        "module":  "commonjs",
-        "moduleResolution": "node",
-        "outDir": "./cjs",
-        "skipLibCheck": true,
-        "declaration": true,
-         "importHelpers": true,
-     }
-   }
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./cjs",
+    "skipLibCheck": true,
+    "declaration": true,
+    "importHelpers": true
+  }
+}

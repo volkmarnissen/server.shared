@@ -7,7 +7,7 @@
     "outDir": "./esm",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-     "noImplicitOverride": true,
+    "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "esModuleInterop": false,
     "strictPropertyInitialization": false,
@@ -20,12 +20,7 @@
     "experimentalDecorators": true,
     "importHelpers": false,
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
-  }, 
-  "include": [
-    "src/*"
-  ]
+    "lib": ["ES2022", "dom"]
+  },
+  "include": ["src/*"]
 }
