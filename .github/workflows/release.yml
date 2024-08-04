@@ -6,5 +6,7 @@ on:
 jobs:
   release:
     uses: modbus2mqtt/specification.shared/.github/workflows/publish.yml@main
+    permissions:
+      contents: write
     secrets:
       NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
