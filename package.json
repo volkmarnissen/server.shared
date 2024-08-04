@@ -1,6 +1,6 @@
 {
   "name": "@modbus2mqtt/server.shared",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "type": "module",
   "description": "Interfaces and functions shared with server and angular ui",
   "keywords": [
