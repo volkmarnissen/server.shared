@@ -1,6 +1,6 @@
 {
   "name": "@modbus2mqtt/server.shared",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "type": "module",
   "description": "Interfaces and functions shared with server and angular ui",
   "keywords": [
@@ -20,7 +20,7 @@
     "build.cjs": "tsc --build tsconfig.cjs.json && echo '{\"type\": \"commonjs\"}' > cjs/package.json",
     "build.esm": "tsc --build tsconfig.json && echo '{\"type\": \"module\"}' > esm/package.json",
     "build": "npm run build.cjs && npm run build.esm",
-    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+    "prettier": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "exports": {
     "require": "./cjs/index.js",
@@ -32,7 +32,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@modbus2mqtt/specification.shared": "^0.8.0",
+    "@modbus2mqtt/specification.shared": "^0.9.0",
     "mqtt": "^5.7.1"
   }
 }
