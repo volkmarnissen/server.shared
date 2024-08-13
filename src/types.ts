@@ -60,7 +60,7 @@ export interface Iconfiguration {
   mqttbasetopic: string
   mqttdiscoveryprefix: string
   mqttdiscoverylanguage: string
-  mqttusehassiotoken?: boolean
+  mqttusehassio?: boolean
   mqttconnect: ImqttClient
   mqttcaFile?: string
   mqttkeyFile?: string
