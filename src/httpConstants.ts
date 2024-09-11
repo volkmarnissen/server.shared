@@ -24,4 +24,5 @@ export const enum apiUri {
   serialDevices = '/api/serial/devices',
   addFilesUrl = '/api/addFilesUrl',
   newSpecificationfiles = '/api/newSpecificationfiles',
+  nextCheck = '/api/nextGithubMergeCheck',
 }
