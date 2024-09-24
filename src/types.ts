@@ -114,6 +114,8 @@ export interface Islave {
 
 export interface IidentificationSpecification {
   filename: string
+  stateTopic?:string
+  statePayload?:string
   status: SpecificationStatus
   entities: ImodbusEntityIdentification[]
   files: IimageAndDocumentUrl[]
