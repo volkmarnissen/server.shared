@@ -32,6 +32,11 @@ export enum RoutingNames {
   slaves = 'slaves',
   specification = 'specification',
 }
+export enum PollModes{
+  intervall =0,
+  trigger  = 1,
+  intervallAndTrigger = 2
+}
 export interface ImqttClient extends IClientOptions {
   mqttserverurl?: string
   ssl?: boolean
@@ -105,6 +110,7 @@ export interface Islave {
   specificationid?: string
   name?: string
   polInterval?: number
+  pollMode?: PollModes
   specification?: IbaseSpecification
   durationOfLongestModbusCall?: number
   modbusTimout?: number
@@ -116,6 +122,7 @@ export interface IidentificationSpecification {
   filename: string
   stateTopic?:string
   statePayload?:string
+  triggerPollTopic?:string
   status: SpecificationStatus
   entities: ImodbusEntityIdentification[]
   files: IimageAndDocumentUrl[]
