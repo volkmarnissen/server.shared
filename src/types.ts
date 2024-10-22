@@ -70,7 +70,7 @@ export interface Iconfiguration {
   mqttcaFile?: string
   mqttkeyFile?: string
   mqttcertFile?: string
-  filelocation: string
+  filelocation?: string
   httpport: number
   rootUrl?: string
 }
