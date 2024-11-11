@@ -62,6 +62,7 @@ export interface Iconfiguration {
   githubPersonalToken?: string
   version: string
   fakeModbus: boolean
+  noAuthentication:boolean
   mqttbasetopic: string
   mqttdiscoveryprefix: string
   mqttdiscoverylanguage: string
@@ -86,6 +87,7 @@ export interface IUserAuthenticationStatus {
   registered: boolean
   hassiotoken: boolean
   hasAuthToken: boolean
+  noAuthentication:boolean
   authTokenExpired: boolean
   mqttConfigured: boolean
   preSelectedBusId?: number
