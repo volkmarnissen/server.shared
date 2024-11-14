@@ -74,6 +74,7 @@ export interface Iconfiguration {
   filelocation?: string
   httpport: number
   rootUrl?: string
+  supervisor_host?:string
 }
 export enum AuthenticationErrors {
   EnvironmentVariableSecretNotSet = 1,
