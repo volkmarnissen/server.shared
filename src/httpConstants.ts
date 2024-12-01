@@ -25,6 +25,6 @@ export const enum apiUri {
   addFilesUrl = '/api/addFilesUrl',
   newSpecificationfiles = '/api/newSpecificationfiles',
   nextCheck = '/api/nextGithubMergeCheck',
-  download = "/download/:what",
-  uploadSpec ="/api/uploadspec"
+  download = '/download/:what',
+  uploadSpec = '/api/uploadspec',
 }

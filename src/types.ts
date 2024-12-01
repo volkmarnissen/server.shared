@@ -4,7 +4,7 @@ import {
   IbaseSpecification,
   IdentifiedStates,
   IimageAndDocumentUrl,
-  ImodbusEntityIdentification,
+  ImodbusEntity,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
 
@@ -32,10 +32,10 @@ export enum RoutingNames {
   slaves = 'slaves',
   specification = 'specification',
 }
-export enum PollModes{
-  intervall =0,
-  trigger  = 1,
-  intervallAndTrigger = 2
+export enum PollModes {
+  intervall = 0,
+  trigger = 1,
+  intervallAndTrigger = 2,
 }
 export interface ImqttClient extends IClientOptions {
   mqttserverurl?: string
@@ -62,7 +62,7 @@ export interface Iconfiguration {
   githubPersonalToken?: string
   version: string
   fakeModbus: boolean
-  noAuthentication:boolean
+  noAuthentication: boolean
   mqttbasetopic: string
   mqttdiscoveryprefix: string
   mqttdiscoverylanguage: string
@@ -74,7 +74,7 @@ export interface Iconfiguration {
   filelocation?: string
   httpport: number
   rootUrl?: string
-  supervisor_host?:string
+  supervisor_host?: string
 }
 export enum AuthenticationErrors {
   EnvironmentVariableSecretNotSet = 1,
@@ -88,7 +88,7 @@ export interface IUserAuthenticationStatus {
   registered: boolean
   hassiotoken: boolean
   hasAuthToken: boolean
-  noAuthentication:boolean
+  noAuthentication: boolean
   authTokenExpired: boolean
   mqttConfigured: boolean
   preSelectedBusId?: number
@@ -119,15 +119,13 @@ export interface Islave {
   modbusTimout?: number
   evalTimeout?: boolean
   detectSpec?: boolean // Will be set when creating a slave. If true, modbus2mqtt will set a specification matching to the modbusdata if there is one
+  rootTopic?: string
 }
 
 export interface IidentificationSpecification {
   filename: string
-  stateTopic?:string
-  statePayload?:string
-  triggerPollTopic?:string
   status: SpecificationStatus
-  entities: ImodbusEntityIdentification[]
+  entities: ImodbusEntity[]
   files: IimageAndDocumentUrl[]
   i18n: ISpecificationTexts[]
   identified: IdentifiedStates
