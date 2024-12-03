@@ -119,6 +119,7 @@ export interface Islave {
   modbusTimout?: number
   evalTimeout?: boolean
   detectSpec?: boolean // Will be set when creating a slave. If true, modbus2mqtt will set a specification matching to the modbusdata if there is one
+  qos?: number
   rootTopic?: string
 }
 

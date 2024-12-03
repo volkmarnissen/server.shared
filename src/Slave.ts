@@ -1,5 +1,5 @@
-import { Ientity, ImodbusEntity } from '@modbus2mqtt/specification.shared'
-import { Islave } from './types'
+import { IbaseSpecification, Ientity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
+import { Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId:number,
   commandTopic:String,
@@ -17,36 +17,45 @@ export class Slave {
   hasRootTopic(): boolean {
     return this.slave.rootTopic != undefined
   }
+  getBaseTopic(){
+    if (this.hasRootTopic()) return this.slave.rootTopic 
+    else return this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid 
+  }
+
   getTriggerPollTopic(): string {
-    if (this.hasRootTopic()) return this.slave.rootTopic + '/triggerPoll/'
-    else return this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid + '/triggerPoll/'
+    return this.getBaseTopic() + '/triggerPoll/'
   }
   getEntityCommandTopic(entity: Ientity): IEntityCommandTopics | undefined {
     let commandTopic:string| undefined = undefined
     let modbusCommandTopic:string| undefined = undefined
     if (!entity.readonly){
-      if (this.hasRootTopic()){
-        commandTopic= this.slave.rootTopic + '/' + entity.mqttname + '/set/'
+        commandTopic= this.getBaseTopic() + '/' + entity.mqttname + '/set/'
         if( entity.converter.name == "select")
-          modbusCommandTopic = this.slave.rootTopic + '/' + entity.mqttname + '/setModbus/'
+          modbusCommandTopic = this.getBaseTopic() +  '/' + entity.mqttname + '/setModbus/'
+        return {
+          entityId:entity.id,
+          commandTopic:commandTopic?commandTopic:"error",
+          modbusCommandTopic:modbusCommandTopic?modbusCommandTopic:"error"
+        }
       } 
-      else {
-        commandTopic= this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid + '/e' + entity.id + '/set/'
-        if( entity.converter.name == "select")
-          modbusCommandTopic = this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid + '/e' + entity.id + '/setModbus/'
-      }
-      return {
-        entityId:entity.id,
-        commandTopic:commandTopic?commandTopic:"error",
-        modbusCommandTopic:modbusCommandTopic?modbusCommandTopic:"error"
-      }
-    }
     return undefined
   }
-
+  getEntityFromCommandTopic(topic: String): Ientity | undefined {
+    let commandTopic:string| undefined = undefined
+    let modbusCommandTopic:string| undefined = undefined
+    let start = this.getBaseTopic()!.length
+    let mqttname = topic.substring(start + 1 )
+    let path = mqttname.split("/")
+    if( path.length > 0 )
+    {
+      if( this.slave.specification && (this.slave.specification as ImodbusSpecification).entities){
+        return (this.slave.specification as ImodbusSpecification).entities.find(e=>e.mqttname == path[0] )
+      }
+    }   
+    return undefined
+  }
   getAvailabilityTopic() {
-    if (this.hasRootTopic()) return this.slave.rootTopic + '/availability/'
-    else return this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid + +'/availability/'
+    return this.getBaseTopic() +'/availability/'
   }
   getStatePayload(entities: ImodbusEntity[]): string {
     let o: any = {}
@@ -62,5 +71,36 @@ export class Slave {
       }
     }
     return JSON.stringify(o, null, '\t')
+  }
+  getBusId():number{
+    return this.busid
+  }
+  getSlaveId():number{
+    return this.slave.slaveid
+  }
+  getName():string| undefined{
+    return this.slave.name
+  }
+  getQos():number| undefined{
+    return this.slave.qos
+  }
+  getPollMode():PollModes| undefined{
+    return this.slave.pollMode
+  }
+  static compareSlaves(s1:Slave, s2:Slave):number{
+    let rc = s1.busid - s2.busid
+    if( ! rc){
+      rc = s1.slave.slaveid - s2.slave.slaveid
+    }
+    return rc
+  }
+  getKey():string{
+    return this.busid + "s" + this.slave.slaveid
+  }
+  
+  getSpecification():Ispecification| undefined {
+    if((this.slave.specification as Ispecification).entities  )
+      return this.slave.specification as Ispecification
+    return undefined
   }
 }
