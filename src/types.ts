@@ -56,7 +56,6 @@ export interface ITCPConnection {
 export type IModbusConnection = IRTUConnection | ITCPConnection
 
 export interface Iconfiguration {
-  hassiotoken?: string
   password?: string
   username?: string
   githubPersonalToken?: string
@@ -87,9 +86,9 @@ export enum AuthenticationErrors {
 export interface IUserAuthenticationStatus {
   registered: boolean
   hassiotoken: boolean
-  hasAuthToken: boolean
+  hasAuthToken?: boolean
   noAuthentication: boolean
-  authTokenExpired: boolean
+  authTokenExpired?: boolean
   mqttConfigured: boolean
   preSelectedBusId?: number
 }

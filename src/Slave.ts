@@ -99,8 +99,23 @@ export class Slave {
   }
   
   getSpecification():Ispecification| undefined {
-    if((this.slave.specification as Ispecification).entities  )
+    if(this.slave && this.slave.specification && (this.slave.specification as Ispecification).entities  )
       return this.slave.specification as Ispecification
     return undefined
+  }
+
+  setSpecification(spec:Ispecification| undefined){
+    if(this.slave ){
+      this.slave.specification = spec
+    }
+  }
+
+  getSpecificationId(): string | undefined {
+    if(this.slave && this.slave.specificationid  )
+      return this.slave.specificationid 
+    return undefined
+  }
+  clone():Slave{
+    return new Slave(this.busid,structuredClone(this.slave),this.mqttBaseTopic)
   }
 }
