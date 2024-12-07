@@ -2,8 +2,8 @@ import { IbaseSpecification, Ientity, ImodbusEntity, ImodbusSpecification, Ispec
 import { Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId:number,
-  commandTopic:String,
-  modbusCommandTopic?:String }
+  commandTopic:string,
+  modbusCommandTopic?:string }
 export class Slave {
   constructor(
     private busid: number,
@@ -44,7 +44,9 @@ export class Slave {
     let commandTopic:string| undefined = undefined
     let modbusCommandTopic:string| undefined = undefined
     let start = this.getBaseTopic()!.length
-    let mqttname = topic.substring(start + 1 )
+    let idx = topic.indexOf('/', start +1 )
+
+    let mqttname = topic.substring(start + 1,idx >=0? idx: undefined )
     let path = mqttname.split("/")
     if( path.length > 0 )
     {
