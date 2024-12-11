@@ -33,7 +33,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@modbus2mqtt/specification.shared": "^0.10.6",
+    "@modbus2mqtt/specification.shared": "^0.10.7",
     "mqtt": "^5.7.1"
   }
 }
