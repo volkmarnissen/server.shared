@@ -36,6 +36,7 @@ export enum PollModes {
   intervall = 0,
   trigger = 1,
   intervallAndTrigger = 2,
+  noPoll = 3,
 }
 export interface ImqttClient extends IClientOptions {
   mqttserverurl?: string
