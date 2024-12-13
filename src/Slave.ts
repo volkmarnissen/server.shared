@@ -63,7 +63,7 @@ export class Slave {
     let o: any = {}
     for (let e of entities) {
       let entity = e as ImodbusEntity
-      if (e.mqttname && e.mqttValue && !e.variableConfiguration) {
+      if (e.mqttname && e.mqttValue!= undefined && !e.variableConfiguration) {
         o[e.mqttname] = null // no data available
         if (e.modbusValue.length > 0) o[e.mqttname] = e.mqttValue
         if (e.converter.name == 'select') {
