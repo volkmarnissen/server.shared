@@ -17,8 +17,8 @@ export class Slave {
   hasRootTopic(): boolean {
     return this.slave.rootTopic != undefined
   }
-  getBaseTopic(){
-    if (this.hasRootTopic()) return this.slave.rootTopic 
+  getBaseTopic():string{
+    if (this.hasRootTopic()) return this.slave.rootTopic!
     else return this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid 
   }
 
