@@ -3,7 +3,8 @@ import { Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId:number,
   commandTopic:string,
-  modbusCommandTopic?:string }
+  modbusCommandTopic?:string
+}
 export class Slave {
   constructor(
     private busid: number,
@@ -24,21 +25,27 @@ export class Slave {
   getTriggerPollTopic(): string {
     return this.getBaseTopic() + '/triggerPoll/'
   }
-  getEntityCommandTopic(entity: Ientity): IEntityCommandTopics | undefined {
+  getEntityCommandTopic(entity?: Ientity ): IEntityCommandTopics | undefined {
     let commandTopic:string| undefined = undefined
     let modbusCommandTopic:string| undefined = undefined
-    if (!entity.readonly){
+    if (entity )
+      if( !entity.readonly){
         commandTopic= this.getBaseTopic() + '/' + entity.mqttname + '/set/'
         if( entity.converter.name == "select")
-          modbusCommandTopic = this.getBaseTopic() +  '/' + entity.mqttname + '/setModbus/'
+          modbusCommandTopic = this.getBaseTopic() +  '/' + entity.mqttname + '/set/modbus/'
         return {
           entityId:entity.id,
           commandTopic:commandTopic?commandTopic:"error",
           modbusCommandTopic:modbusCommandTopic?modbusCommandTopic:"error"
         }
-      } 
+      }
     return undefined
   }
+
+  getEntityCommandTopicFilter(): string {
+    return this.getBaseTopic() + '/+/set/#'
+  }
+  
   getCommandTopic(): string | undefined{
     let commandTopic:string| undefined = undefined
     let modbusCommandTopic:string| undefined = undefined
