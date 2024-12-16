@@ -36,7 +36,7 @@ export class Slave {
         return {
           entityId:entity.id,
           commandTopic:commandTopic?commandTopic:"error",
-          modbusCommandTopic:modbusCommandTopic?modbusCommandTopic:"error"
+          modbusCommandTopic:modbusCommandTopic?modbusCommandTopic:undefined
         }
       }
     return undefined
