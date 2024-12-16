@@ -11,14 +11,13 @@ export class Slave {
     private mqttBaseTopic: string
   ) {}
   getStateTopic(): string {
-    if (this.hasRootTopic()) return this.slave.rootTopic + '/state/'
-    else return this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid + '/state/'
+    return this.getBaseTopic() + '/state/'
   }
   hasRootTopic(): boolean {
     return this.slave.rootTopic != undefined
   }
   getBaseTopic():string{
-    if (this.hasRootTopic()) return this.slave.rootTopic!
+    if (this.hasRootTopic()) return this.mqttBaseTopic + '/' + this.slave.rootTopic!
     else return this.mqttBaseTopic + '/' + this.busid + 's' + this.slave.slaveid 
   }
 
@@ -37,6 +36,15 @@ export class Slave {
           commandTopic:commandTopic?commandTopic:"error",
           modbusCommandTopic:modbusCommandTopic?modbusCommandTopic:"error"
         }
+      } 
+    return undefined
+  }
+  getCommandTopic(): string | undefined{
+    let commandTopic:string| undefined = undefined
+    let modbusCommandTopic:string| undefined = undefined
+    if (this.getSpecification()?.entities.find(e=> !e.readonly)){
+        commandTopic= this.getBaseTopic() + '/set/'
+        return commandTopic
       } 
     return undefined
   }
