@@ -45,6 +45,12 @@ export class Slave {
   getEntityCommandTopicFilter(): string {
     return this.getBaseTopic() + '/+/set/#'
   }
+  getNoDiscoverEntities():number[]{
+    return this.slave.noDiscoverEntities ? this.slave.noDiscoverEntities:[];
+  }
+  getNoDiscovery():boolean{
+    return this.slave.noDiscovery == undefined?false:this.slave.noDiscovery;
+  }
   
   getCommandTopic(): string | undefined{
     let commandTopic:string| undefined = undefined
