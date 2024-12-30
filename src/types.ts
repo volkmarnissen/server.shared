@@ -121,8 +121,8 @@ export interface Islave {
   detectSpec?: boolean // Will be set when creating a slave. If true, modbus2mqtt will set a specification matching to the modbusdata if there is one
   qos?: number
   rootTopic?: string
-  noDiscoverEntities?:number[]
-  noDiscovery?: boolean;
+  noDiscoverEntities?: number[]
+  noDiscovery?: boolean
 }
 
 export interface IidentificationSpecification {
