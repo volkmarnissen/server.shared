@@ -1,4 +1,4 @@
-import { IClientOptions } from 'mqtt'
+import { ClientOptions } from 'mqtt'
 import {
   ISpecificationTexts,
   IbaseSpecification,
@@ -38,7 +38,7 @@ export enum PollModes {
   intervallAndTrigger = 2,
   noPoll = 3,
 }
-export interface ImqttClient extends IClientOptions {
+export interface ImqttClient extends ClientOptions {
   mqttserverurl?: string
   ssl?: boolean
 }
@@ -108,7 +108,22 @@ export function getConnectionName(connection: IModbusConnection): string {
     return 'TCP: ' + c.host + ':' + c.port + ' t: ' + (c.timeout ? c.timeout : 100)
   }
 }
-
+export interface ImodbusError {
+  entityId: number;
+  message: string;
+}
+export interface ImodbusErrorsForSlave {
+  errors: ImodbusError[];
+  notIdentifiedEntities: number[];
+  totalErrorCount: number;
+  errorsSinceLastSuccessful: number;
+  allEntitiesFailed: boolean;
+  lastAllEntitiesFailedTime: number;
+  lastAllEntitiesFailedSinceLastSuccessful: number;
+  lastErrorTime: number;
+  lastSuccessfulIdentifiedTime: number;
+  lastIdentifiedSinceLastSuccessful: number;
+}
 export interface Islave {
   slaveid: number
   specificationid?: string
@@ -124,6 +139,7 @@ export interface Islave {
   rootTopic?: string
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
+  modbusErrorsForSlave?:ImodbusErrorsForSlave
 }
 
 export interface IidentificationSpecification {
