@@ -28,12 +28,12 @@
     "import": "./esm/index.js"
   },
   "devDependencies": {
-    "@types/mqtt": "^0.0.34",
     "prettier": "^3.3.3",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@modbus2mqtt/specification.shared": "github:modbus2mqtt/specification.shared"
+    "@modbus2mqtt/specification.shared": "github:modbus2mqtt/specification.shared",
+    "mqtt": "^5.10.3"
   }
 }
