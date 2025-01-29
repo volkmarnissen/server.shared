@@ -1,4 +1,4 @@
-import { ClientOptions } from 'mqtt'
+
 import {
   ISpecificationTexts,
   IbaseSpecification,
@@ -7,6 +7,7 @@ import {
   ImodbusEntity,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
+import { IClientOptions } from 'mqtt'
 
 export enum HttpErrorsEnum {
   OK = 200,
@@ -38,7 +39,7 @@ export enum PollModes {
   intervallAndTrigger = 2,
   noPoll = 3,
 }
-export interface ImqttClient extends ClientOptions {
+export interface ImqttClient extends IClientOptions {
   mqttserverurl?: string
   ssl?: boolean
 }
