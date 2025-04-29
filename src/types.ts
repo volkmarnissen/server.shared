@@ -138,11 +138,36 @@ export enum ModbusTasks {
     writeEntity = 6,
     initialConnect = 7
 }
+export enum ModbusErrorStates {
+  noerror,
+  timeout,
+  crc,
+  other,
+  illegalfunctioncode,
+  illegaladdress,
+  initialConnect
+}
+
+export interface ImodbusAddress {
+  address: number
+  registerType: ModbusRegisterType
+  write?: number[]
+  length?: number
+}
+export enum ModbusTasks {
+  deviceDetection,
+  specification,
+  entity,
+  poll,
+  writeEntity,
+  splitted,
+  initialConnect
+}
 export interface ImodbusErrorsForSlave {
-  task: ModbusTasks
-  date: number
-  address: ImodbusAddress
-  state: ModbusErrorStates
+  task:ModbusTasks,
+  date:number,
+  address:ImodbusAddress,
+  state:ModbusErrorStates
 }
 export interface Islave {
   slaveid: number
@@ -159,7 +184,7 @@ export interface Islave {
   rootTopic?: string
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
-  modbusErrorsForSlave?: ImodbusErrorsForSlave[]
+  modbusErrorsForSlave?:ImodbusErrorsForSlave[]
 }
 export interface IidentificationSpecification {
   filename: string
