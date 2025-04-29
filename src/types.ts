@@ -5,6 +5,7 @@ import {
   IdentifiedStates,
   IimageAndDocumentUrl,
   ImodbusEntity,
+  ModbusRegisterType,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
 import { IClientOptions } from 'mqtt'
@@ -113,17 +114,36 @@ export interface ImodbusError {
   entityId: number;
   message: string;
 }
+export enum ModbusErrorStates {
+  noerror,
+  timeout,
+  crc,
+  other,
+  illegalfunctioncode,
+  illegaladdress,
+  initialConnect
+}
+
+export interface ImodbusAddress {
+  address: number
+  registerType: ModbusRegisterType
+  write?: number[]
+  length?: number
+}
+export enum ModbusTasks {
+  deviceDetection,
+  specification,
+  entity,
+  poll,
+  writeEntity,
+  splitted,
+  initialConnect
+}
 export interface ImodbusErrorsForSlave {
-  errors: ImodbusError[];
-  notIdentifiedEntities: number[];
-  totalErrorCount: number;
-  errorsSinceLastSuccessful: number;
-  allEntitiesFailed: boolean;
-  lastAllEntitiesFailedTime: number;
-  lastAllEntitiesFailedSinceLastSuccessful: number;
-  lastErrorTime: number;
-  lastSuccessfulIdentifiedTime: number;
-  lastIdentifiedSinceLastSuccessful: number;
+  task:ModbusTasks,
+  date:number,
+  address:ImodbusAddress,
+  state:ModbusErrorStates
 }
 export interface Islave {
   slaveid: number
@@ -140,7 +160,7 @@ export interface Islave {
   rootTopic?: string
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
-  modbusErrorsForSlave?:ImodbusErrorsForSlave
+  modbusErrorsForSlave?:ImodbusErrorsForSlave[]
 }
 
 export interface IidentificationSpecification {
