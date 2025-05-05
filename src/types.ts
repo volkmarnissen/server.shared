@@ -1,8 +1,6 @@
 import {
   IdentifiedStates,
   IidentEntity,
-  ImodbusSpecification,
-  Ispecification,
   ModbusRegisterType,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
@@ -161,13 +159,6 @@ export interface Islave {
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
   modbusErrorsForSlave?: ImodbusErrorsForSlave[]
-}
-
-export interface IidentEntity {
-  id:number,
-  name?:string,
-  readonly:boolean,
-  mqttname:string
 }
 export interface IidentificationSpecification {
   filename: string

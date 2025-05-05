@@ -1,4 +1,4 @@
-import { IbaseSpecification, Ientity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
+import { Ientity, IidentEntity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
 import { IidentificationSpecification, Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId: number
@@ -100,11 +100,11 @@ export class Slave {
   getSlaveId(): number {
     return this.slave.slaveid
   }
-  getEntityName(entityId: number): string | undefined {
-    let spec = this.getSpecification()
-    if (!spec || !spec.entities) return undefined
-    let e = spec.entities.find((e) => e.id == entityId)
-    return e ? e.name : undefined
+  getEntityName(entityId:number): string | undefined {
+    if( !this.specification|| !this.specification.entities)
+      return undefined
+    let e = this.specification.entities.find(e=>e.id==entityId)
+    return e?e.name:undefined
   }
   getName(): string | undefined {
     return this.slave.name
