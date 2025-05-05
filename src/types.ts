@@ -151,7 +151,7 @@ export interface Islave {
   name?: string
   pollInterval?: number
   pollMode?: PollModes
-  specification?: IbaseSpecification
+  specification?: IidentificationSpecification
   durationOfLongestModbusCall?: number
   modbusTimout?: number
   evalTimeout?: boolean
@@ -163,12 +163,16 @@ export interface Islave {
   modbusErrorsForSlave?:ImodbusErrorsForSlave[]
 }
 
+export interface IidentEntity {
+  id:number,
+  name?:string,
+  readonly:boolean,
+  mqttname:string
+}
 export interface IidentificationSpecification {
   filename: string
+  name?:string
   status: SpecificationStatus
-  entities: ImodbusEntity[]
-  files: IimageAndDocumentUrl[]
-  i18n: ISpecificationTexts[]
   identified: IdentifiedStates
-  configuredSlave?: Islave
+  entities: IidentEntity[]
 }
