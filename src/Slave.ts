@@ -1,4 +1,4 @@
-import { IbaseSpecification, Ientity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
+import { Ientity, IidentEntity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
 import { IidentificationSpecification, Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId: number
@@ -28,13 +28,13 @@ export class Slave {
   getTriggerPollTopic(): string {
     return this.getBaseTopic() + '/triggerPoll/'
   }
-  getEntityCommandTopic(entity?: Ientity): IEntityCommandTopics | undefined {
+  getEntityCommandTopic(entity?: IidentEntity): IEntityCommandTopics | undefined {
     let commandTopic: string | undefined = undefined
     let modbusCommandTopic: string | undefined = undefined
     if (entity)
       if (!entity.readonly) {
         commandTopic = this.getBaseTopic() + '/' + entity.mqttname + '/set/'
-        if (entity.converter.name == 'select') modbusCommandTopic = this.getBaseTopic() + '/' + entity.mqttname + '/set/modbus/'
+        // TODO user /set/ for select if (entity.converter == ) modbusCommandTopic = this.getBaseTopic() + '/' + entity.mqttname + '/set/'
         return {
           entityId: entity.id,
           commandTopic: commandTopic ? commandTopic : 'error',
@@ -86,7 +86,7 @@ export class Slave {
     for (let e of entities) {
       if (e.mqttname != undefined && e.mqttname.length > 0 && e.variableConfiguration == undefined) {
         o[e.mqttname] = e.mqttValue != undefined ? e.mqttValue : defaultValue
-        if (e.converter.name == 'select') {
+        if (e.converter == 'select') {
           if (o.modbusValues == undefined) o.modbusValues = {}
           if (e.modbusValue != undefined && e.modbusValue.length > 0) o.modbusValues[e.mqttname] = e.modbusValue[0]
         }
@@ -99,6 +99,12 @@ export class Slave {
   }
   getSlaveId(): number {
     return this.slave.slaveid
+  }
+  getEntityName(entityId:number): string | undefined {
+    if( !this.specification|| !this.specification.entities)
+      return undefined
+    let e = this.specification.entities.find(e=>e.id==entityId)
+    return e?e.name:undefined
   }
   getName(): string | undefined {
     return this.slave.name
