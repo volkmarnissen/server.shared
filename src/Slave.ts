@@ -1,5 +1,5 @@
 import { IbaseSpecification, Ientity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
-import { Islave, PollModes } from './types'
+import { IidentificationSpecification, Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId: number
   commandTopic: string
@@ -10,7 +10,10 @@ export class Slave {
     private busid: number,
     private slave: Islave,
     private mqttBaseTopic: string
-  ) {}
+  ) {
+    this.specification = undefined
+  }
+  specification: Ispecification| undefined
   getStateTopic(): string {
     return this.getBaseTopic() + '/state/'
   }
@@ -54,7 +57,7 @@ export class Slave {
   getCommandTopic(): string | undefined {
     let commandTopic: string | undefined = undefined
     let modbusCommandTopic: string | undefined = undefined
-    if (this.getSpecification()?.entities.find((e) => !e.readonly)) {
+    if (this.slave.specification?.entities.find((e) => !e.readonly)) {
       commandTopic = this.getBaseTopic() + '/set/'
       return commandTopic
     }
@@ -100,6 +103,9 @@ export class Slave {
   getName(): string | undefined {
     return this.slave.name
   }
+  getIdentSpecification():IidentificationSpecification|undefined {
+    return this.slave.specification
+  }
   getQos(): number | undefined {
     return this.slave.qos
   }
@@ -117,15 +123,14 @@ export class Slave {
     return this.busid + 's' + this.slave.slaveid
   }
 
+
   getSpecification(): Ispecification | undefined {
-    if (this.slave && this.slave.specification && (this.slave.specification as Ispecification).entities)
-      return this.slave.specification as Ispecification
-    return undefined
+    return this.specification 
   }
 
   setSpecification(spec: Ispecification | undefined) {
     if (this.slave) {
-      this.slave.specification = spec
+      this.specification = spec
     }
   }
 

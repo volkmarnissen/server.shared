@@ -1,6 +1,6 @@
 export const enum apiUri {
   modbusSpecification = '/api/modbus/specification',
-  specsForSlaveId = '/api/specsForSlaveId',
+  specsDetection = '/api/specsDetection',
   specifications = '/api/specifications',
   specfication = '/api/specification',
   specficationContribute = '/api/specification/contribute',
