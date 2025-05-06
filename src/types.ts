@@ -1,6 +1,8 @@
 import {
   IdentifiedStates,
   IidentEntity,
+  ImodbusSpecification,
+  Ispecification,
   ModbusRegisterType,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
@@ -149,7 +151,7 @@ export interface Islave {
   name?: string
   pollInterval?: number
   pollMode?: PollModes
-  specification?: IidentificationSpecification
+  specification?: Ispecification
   durationOfLongestModbusCall?: number
   modbusTimout?: number
   evalTimeout?: boolean
