@@ -11,9 +11,7 @@ export class Slave {
     private slave: Islave,
     private mqttBaseTopic: string
   ) {
-    this.specification = undefined
   }
-  specification: Ispecification| undefined
   getStateTopic(): string {
     return this.getBaseTopic() + '/state/'
   }
@@ -101,16 +99,14 @@ export class Slave {
     return this.slave.slaveid
   }
   getEntityName(entityId:number): string | undefined {
-    if( !this.specification|| !this.specification.entities)
+    let spec = this.getSpecification()
+    if( !spec|| !spec.entities)
       return undefined
-    let e = this.specification.entities.find(e=>e.id==entityId)
+    let e = spec.entities.find(e=>e.id==entityId)
     return e?e.name:undefined
   }
   getName(): string | undefined {
     return this.slave.name
-  }
-  getIdentSpecification():IidentificationSpecification|undefined {
-    return this.slave.specification
   }
   getQos(): number | undefined {
     return this.slave.qos
@@ -131,13 +127,9 @@ export class Slave {
 
 
   getSpecification(): Ispecification | undefined {
-    return this.specification 
-  }
-
-  setSpecification(spec: Ispecification | undefined) {
-    if (this.slave) {
-      this.specification = spec
-    }
+    if (this.slave && this.slave.specification)
+      return this.slave.specification 
+    return undefined
   }
 
   getSpecificationId(): string | undefined {
