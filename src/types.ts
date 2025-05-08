@@ -1,7 +1,9 @@
 import {
   IdentifiedStates,
+  IidentEntity,
   IimageAndDocumentUrl,
   ImodbusEntity,
+  Ispecification,
   ModbusRegisterType,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
