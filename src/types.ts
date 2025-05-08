@@ -98,7 +98,7 @@ export interface IBus {
   busId: number
   connectionData: IModbusConnection
   slaves: Islave[]
-  tcpBridgePort?:number
+  tcpBridgePort?: number
 }
 export function getConnectionName(connection: IModbusConnection): string {
   if ((connection as IRTUConnection).baudrate) {
