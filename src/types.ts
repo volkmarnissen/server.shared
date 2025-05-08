@@ -47,7 +47,7 @@ export interface IRTUConnection {
   serialport: string
   baudrate: number
   timeout: number
-  tcpBridge?: boolean
+  tcpBridgePort?: number
 }
 export interface ITCPConnection {
   host: string
@@ -99,7 +99,6 @@ export interface IBus {
   busId: number
   connectionData: IModbusConnection
   slaves: Islave[]
-  tcpBridgePort?: number
 }
 export function getConnectionName(connection: IModbusConnection): string {
   if ((connection as IRTUConnection).baudrate) {
