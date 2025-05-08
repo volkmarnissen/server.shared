@@ -10,8 +10,7 @@ export class Slave {
     private busid: number,
     private slave: Islave,
     private mqttBaseTopic: string
-  ) {
-  }
+  ) {}
   getStateTopic(): string {
     return this.getBaseTopic() + '/state/'
   }
@@ -98,12 +97,11 @@ export class Slave {
   getSlaveId(): number {
     return this.slave.slaveid
   }
-  getEntityName(entityId:number): string | undefined {
+  getEntityName(entityId: number): string | undefined {
     let spec = this.getSpecification()
-    if( !spec|| !spec.entities)
-      return undefined
-    let e = spec.entities.find(e=>e.id==entityId)
-    return e?e.name:undefined
+    if (!spec || !spec.entities) return undefined
+    let e = spec.entities.find((e) => e.id == entityId)
+    return e ? e.name : undefined
   }
   getName(): string | undefined {
     return this.slave.name
@@ -125,10 +123,8 @@ export class Slave {
     return this.busid + 's' + this.slave.slaveid
   }
 
-
   getSpecification(): Ispecification | undefined {
-    if (this.slave && this.slave.specification)
-      return this.slave.specification 
+    if (this.slave && this.slave.specification) return this.slave.specification
     return undefined
   }
 
