@@ -1,9 +1,7 @@
-
 import {
   IdentifiedStates,
   IidentEntity,
-  IimageAndDocumentUrl,
-  ImodbusEntity,
+  ImodbusSpecification,
   Ispecification,
   ModbusRegisterType,
   SpecificationStatus,
@@ -77,7 +75,7 @@ export interface Iconfiguration {
   httpport: number
   rootUrl?: string
   supervisor_host?: string
-  debugComponents?:string
+  debugComponents?: string
 }
 export enum AuthenticationErrors {
   EnvironmentVariableSecretNotSet = 1,
@@ -100,6 +98,7 @@ export interface IBus {
   busId: number
   connectionData: IModbusConnection
   slaves: Islave[]
+  tcpBridgePort?:number
 }
 export function getConnectionName(connection: IModbusConnection): string {
   if ((connection as IRTUConnection).baudrate) {
@@ -111,8 +110,8 @@ export function getConnectionName(connection: IModbusConnection): string {
   }
 }
 export interface ImodbusError {
-  entityId: number;
-  message: string;
+  entityId: number
+  message: string
 }
 export enum ModbusErrorStates {
   noerror,
@@ -121,7 +120,7 @@ export enum ModbusErrorStates {
   other,
   illegalfunctioncode,
   illegaladdress,
-  initialConnect
+  initialConnect,
 }
 
 export interface ImodbusAddress {
@@ -137,13 +136,14 @@ export enum ModbusTasks {
   poll,
   writeEntity,
   splitted,
-  initialConnect
+  initialConnect,
+  tcpBridge,
 }
 export interface ImodbusErrorsForSlave {
-  task:ModbusTasks,
-  date:number,
-  address:ImodbusAddress,
-  state:ModbusErrorStates
+  task: ModbusTasks
+  date: number
+  address: ImodbusAddress
+  state: ModbusErrorStates
 }
 export interface Islave {
   slaveid: number
@@ -160,11 +160,11 @@ export interface Islave {
   rootTopic?: string
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
-  modbusErrorsForSlave?:ImodbusErrorsForSlave[]
+  modbusErrorsForSlave?: ImodbusErrorsForSlave[]
 }
 export interface IidentificationSpecification {
   filename: string
-  name?:string
+  name?: string
   status: SpecificationStatus
   identified: IdentifiedStates
   entities: IidentEntity[]
