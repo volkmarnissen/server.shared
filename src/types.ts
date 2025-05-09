@@ -129,15 +129,15 @@ export interface ImodbusAddress {
   write?: number[]
   length?: number
 }
-export enum ModbusTasks {
-  deviceDetection,
-  specification,
-  entity,
-  poll,
-  writeEntity,
-  splitted,
-  initialConnect,
-  tcpBridge,
+export enum ModbusTasks { 
+    deviceDetection = 0,
+    splitted = 1,
+    tcpBridge = 2,
+    poll = 3,
+    specification = 4,
+    entity = 5,
+    writeEntity = 6,
+    initialConnect = 7
 }
 export interface ImodbusErrorsForSlave {
   task: ModbusTasks
