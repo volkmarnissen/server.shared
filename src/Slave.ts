@@ -1,5 +1,5 @@
-import { IbaseSpecification, Ientity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
-import { Islave, PollModes } from './types'
+import { Ientity, IidentEntity, ImodbusEntity, ImodbusSpecification, Ispecification } from '@modbus2mqtt/specification.shared'
+import { IidentificationSpecification, Islave, PollModes } from './types'
 export interface IEntityCommandTopics {
   entityId: number
   commandTopic: string
@@ -25,13 +25,13 @@ export class Slave {
   getTriggerPollTopic(): string {
     return this.getBaseTopic() + '/triggerPoll/'
   }
-  getEntityCommandTopic(entity?: Ientity): IEntityCommandTopics | undefined {
+  getEntityCommandTopic(entity?: IidentEntity): IEntityCommandTopics | undefined {
     let commandTopic: string | undefined = undefined
     let modbusCommandTopic: string | undefined = undefined
     if (entity)
       if (!entity.readonly) {
         commandTopic = this.getBaseTopic() + '/' + entity.mqttname + '/set/'
-        if (entity.converter.name == 'select') modbusCommandTopic = this.getBaseTopic() + '/' + entity.mqttname + '/set/modbus/'
+        // TODO user /set/ for select if (entity.converter == ) modbusCommandTopic = this.getBaseTopic() + '/' + entity.mqttname + '/set/'
         return {
           entityId: entity.id,
           commandTopic: commandTopic ? commandTopic : 'error',
@@ -54,7 +54,7 @@ export class Slave {
   getCommandTopic(): string | undefined {
     let commandTopic: string | undefined = undefined
     let modbusCommandTopic: string | undefined = undefined
-    if (this.getSpecification()?.entities.find((e) => !e.readonly)) {
+    if (this.slave.specification?.entities.find((e) => !e.readonly)) {
       commandTopic = this.getBaseTopic() + '/set/'
       return commandTopic
     }
@@ -83,7 +83,7 @@ export class Slave {
     for (let e of entities) {
       if (e.mqttname != undefined && e.mqttname.length > 0 && e.variableConfiguration == undefined) {
         o[e.mqttname] = e.mqttValue != undefined ? e.mqttValue : defaultValue
-        if (e.converter.name == 'select') {
+        if (e.converter == 'select') {
           if (o.modbusValues == undefined) o.modbusValues = {}
           if (e.modbusValue != undefined && e.modbusValue.length > 0) o.modbusValues[e.mqttname] = e.modbusValue[0]
         }
@@ -96,6 +96,12 @@ export class Slave {
   }
   getSlaveId(): number {
     return this.slave.slaveid
+  }
+  getEntityName(entityId: number): string | undefined {
+    let spec = this.getSpecification()
+    if (!spec || !spec.entities) return undefined
+    let e = spec.entities.find((e) => e.id == entityId)
+    return e ? e.name : undefined
   }
   getName(): string | undefined {
     return this.slave.name
@@ -118,15 +124,8 @@ export class Slave {
   }
 
   getSpecification(): Ispecification | undefined {
-    if (this.slave && this.slave.specification && (this.slave.specification as Ispecification).entities)
-      return this.slave.specification as Ispecification
+    if (this.slave && this.slave.specification) return this.slave.specification
     return undefined
-  }
-
-  setSpecification(spec: Ispecification | undefined) {
-    if (this.slave) {
-      this.slave.specification = spec
-    }
   }
 
   getSpecificationId(): string | undefined {

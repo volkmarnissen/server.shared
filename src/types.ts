@@ -1,10 +1,8 @@
-
 import {
-  ISpecificationTexts,
-  IbaseSpecification,
   IdentifiedStates,
-  IimageAndDocumentUrl,
-  ImodbusEntity,
+  IidentEntity,
+  ImodbusSpecification,
+  Ispecification,
   ModbusRegisterType,
   SpecificationStatus,
 } from '@modbus2mqtt/specification.shared'
@@ -49,6 +47,7 @@ export interface IRTUConnection {
   serialport: string
   baudrate: number
   timeout: number
+  tcpBridge?: boolean
 }
 export interface ITCPConnection {
   host: string
@@ -77,7 +76,7 @@ export interface Iconfiguration {
   httpport: number
   rootUrl?: string
   supervisor_host?: string
-  debugComponents?:string
+  debugComponents?: string
 }
 export enum AuthenticationErrors {
   EnvironmentVariableSecretNotSet = 1,
@@ -111,8 +110,8 @@ export function getConnectionName(connection: IModbusConnection): string {
   }
 }
 export interface ImodbusError {
-  entityId: number;
-  message: string;
+  entityId: number
+  message: string
 }
 export enum ModbusErrorStates {
   noerror,
@@ -121,7 +120,7 @@ export enum ModbusErrorStates {
   other,
   illegalfunctioncode,
   illegaladdress,
-  initialConnect
+  initialConnect,
 }
 
 export interface ImodbusAddress {
@@ -130,20 +129,21 @@ export interface ImodbusAddress {
   write?: number[]
   length?: number
 }
-export enum ModbusTasks {
-  deviceDetection,
-  specification,
-  entity,
-  poll,
-  writeEntity,
-  splitted,
-  initialConnect
+export enum ModbusTasks { 
+    deviceDetection = 0,
+    splitted = 1,
+    tcpBridge = 2,
+    poll = 3,
+    specification = 4,
+    entity = 5,
+    writeEntity = 6,
+    initialConnect = 7
 }
 export interface ImodbusErrorsForSlave {
-  task:ModbusTasks,
-  date:number,
-  address:ImodbusAddress,
-  state:ModbusErrorStates
+  task: ModbusTasks
+  date: number
+  address: ImodbusAddress
+  state: ModbusErrorStates
 }
 export interface Islave {
   slaveid: number
@@ -151,7 +151,7 @@ export interface Islave {
   name?: string
   pollInterval?: number
   pollMode?: PollModes
-  specification?: IbaseSpecification
+  specification?: Ispecification
   durationOfLongestModbusCall?: number
   modbusTimout?: number
   evalTimeout?: boolean
@@ -160,15 +160,12 @@ export interface Islave {
   rootTopic?: string
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
-  modbusErrorsForSlave?:ImodbusErrorsForSlave[]
+  modbusErrorsForSlave?: ImodbusErrorsForSlave[]
 }
-
 export interface IidentificationSpecification {
   filename: string
+  name?: string
   status: SpecificationStatus
-  entities: ImodbusEntity[]
-  files: IimageAndDocumentUrl[]
-  i18n: ISpecificationTexts[]
   identified: IdentifiedStates
-  configuredSlave?: Islave
+  entities: IidentEntity[]
 }
