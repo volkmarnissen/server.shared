@@ -47,7 +47,7 @@ export interface IRTUConnection {
   serialport: string
   baudrate: number
   timeout: number
-  tcpBridgePort?: number
+  tcpBridge?: boolean
 }
 export interface ITCPConnection {
   host: string
