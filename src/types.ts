@@ -145,6 +145,10 @@ export interface ImodbusErrorsForSlave {
   address: ImodbusAddress
   state: ModbusErrorStates
 }
+export interface ImodbusStatusForSlave{
+  requestCount: number[];
+  errors:ImodbusErrorsForSlave[]
+}
 export interface Islave {
   slaveid: number
   specificationid?: string
@@ -160,7 +164,7 @@ export interface Islave {
   rootTopic?: string
   noDiscoverEntities?: number[]
   noDiscovery?: boolean
-  modbusErrorsForSlave?: ImodbusErrorsForSlave[]
+  modbusStatusForSlave?: ImodbusStatusForSlave
 }
 export interface IidentificationSpecification {
   filename: string
