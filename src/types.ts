@@ -147,7 +147,8 @@ export interface ImodbusErrorsForSlave {
 }
 export interface ImodbusStatusForSlave{
   requestCount: number[];
-  errors:ImodbusErrorsForSlave[]
+  errors:ImodbusErrorsForSlave[],
+  queueLength:number
 }
 export interface Islave {
   slaveid: number
