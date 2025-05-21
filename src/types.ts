@@ -77,6 +77,7 @@ export interface Iconfiguration {
   rootUrl?: string
   supervisor_host?: string
   debugComponents?: string
+  tcpBridgePort?: number
 }
 export enum AuthenticationErrors {
   EnvironmentVariableSecretNotSet = 1,
